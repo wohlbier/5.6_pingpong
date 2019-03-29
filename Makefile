@@ -1,4 +1,3 @@
-HDRS = algebra.hh types.hh
 SRCS = main.cc
 EMU_OBJS = $(subst .cc,.emu.o,$(SRCS))
 
@@ -14,27 +13,21 @@ EMU_SIM_ARGS =
 
 EMU_PROFILE = $(EMU_PATH)/bin/emusim_profile
 
-EXE  = llt
+LDFLAGS = -lemu_c_utils
+
+EXE  = pingpong
 EMU_EXE = $(EXE).mwx
-#INPUT = tri-1.tsv
-#INPUT = tri-3.tsv
-#INPUT = tri-63.tsv
-#INPUT = tri-184.tsv
-#INPUT = tri-379.tsv
-#INPUT = tri-994.tsv
-INPUT = tri-1582.tsv
-#INPUT = triangle_count_data_ca-HepTh.tsv
 
 $(EMU_EXE) : $(EMU_OBJS)
-	$(EMU_CXX) -o $(EMU_EXE) $(EMU_OBJS) $(LDFLAGS)
+	$(EMU_CXX) -o $(EMU_EXE) $(EMU_OBJS)
 
 run : $(EMU_EXE)
-	$(EMU_SIM) $(EMU_SIM_ARGS) $(EMU_EXE) $(INPUT)
+	$(EMU_SIM) $(EMU_SIM_ARGS) $(EMU_EXE)
 
 profile : $(EMU_EXE)
-	$(EMU_PROFILE) profile $(EMU_SIM_ARGS) -- $(EMU_EXE) $(INPUT)
+	$(EMU_PROFILE) profile $(EMU_SIM_ARGS) -- $(EMU_EXE)
 
-%.emu.o: %.cc $(HDRS)
+%.emu.o: %.cc
 	$(EMU_CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 .PHONY : clean
