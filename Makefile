@@ -8,7 +8,7 @@ EMU_CXX = $(EMU_PATH)/bin/emu-cc
 EMU_SIM = $(EMU_PATH)/bin/emusim.x
 
 EMU_SIM_ARGS =
-#EMU_SIM_ARGS += --short_trace
+EMU_SIM_ARGS += --short_trace
 #EMU_SIM_ARGS += --memory_trace
 
 EMU_PROFILE = $(EMU_PATH)/bin/emusim_profile
